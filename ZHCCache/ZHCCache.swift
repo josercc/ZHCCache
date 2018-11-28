@@ -11,6 +11,15 @@ import Foundation
 class ZHCCache {
     
     func fix() {
+        guard let CONFIGURATION = filterValue(key: "CONFIGURATION") else {
+            printLog(string:"参数错误 参数缺少 CONFIGURATION 参数")
+            return
+        }
+        printLog(string:"CONFIGURATION=\(CONFIGURATION)")
+        if CONFIGURATION == "Debug" {
+            printLog(string: "Debug 模式退出!")
+            return
+        }
         guard let PWD = filterValue(key: "PWD")  else {
             printLog(string:"参数错误 参数缺少 PWD 参数")
             return
@@ -75,6 +84,10 @@ class ZHCCache {
                 printLog(string:"需要修改的文件路径为:👉🏻\(path)👉🏻")
                 if let data1 = FileManager.default.contents(atPath: path) {
                     if var fileContent = String(data: data1, encoding: String.Encoding.utf8) {
+                        if fileContent.range(of: old) == nil {
+                            printLog(string: "文件不需要改动已经支持!")
+                            return
+                        }
                         fileContent = fileContent.replacingOccurrences(of: old, with: new)
                         do {
                             try fileContent.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
