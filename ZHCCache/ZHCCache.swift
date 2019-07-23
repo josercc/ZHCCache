@@ -30,10 +30,7 @@ class ZHCCache {
             return
         }
         printLog(string:"OTHER_CFLAGS=\(OTHER_CFLAGS)")
-        guard let PODS_CONFIGURATION_BUILD_DIR = filterPodConfigurationBuildDir(otherCFlage: OTHER_CFLAGS) else {
-            printLog(string:"无法解析 PODS_CONFIGURATION_BUILD_DIR 路径")
-            return
-        }
+        let PODS_CONFIGURATION_BUILD_DIR = filterPodConfigurationBuildDir(otherCFlage: OTHER_CFLAGS) ?? OTHER_CFLAGS
         printLog(string:"PODS_CONFIGURATION_BUILD_DIR=\(PODS_CONFIGURATION_BUILD_DIR)")
 //        let PODS_CONFIGURATION_BUILD_DIR = "/Users/zhangxing/Library/Developer/Xcode/DerivedData/GearBest-civigpnhcossbibqlyzbsbtghkco/Build/Intermediates.noindex/ArchiveIntermediates/GearBest/BuildProductsPath/AdHoc-iphoneos"
         
